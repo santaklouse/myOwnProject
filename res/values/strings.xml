@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, VK_MessengerActivity!</string>
+    <string name="app_name">VK_Messenger</string>
+
+</resources>
