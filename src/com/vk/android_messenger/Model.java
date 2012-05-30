@@ -76,13 +76,16 @@ public class Model {
 	protected final String client_id = "2971269";
 	protected final String client_secret = "sqlQ4OSnIdoo2j9NnKiw";
 
+
 	//API url
 	private String apiUrl = "https://api.vk.com/oauth/token?";
 	
 	//request params array
 	private Map <String, String> requestParams = new HashMap <String, String>();
+
 	//response data array
 	private Map <String, String> data = new HashMap <String, String>();
+
 	//errors array
 	private Map <String, String> errors = new HashMap <String, String>();
 
@@ -94,8 +97,8 @@ public class Model {
 		this.set("client_id", this.client_id);
 		this.set("client_secret", this.client_secret);
 
-		this.set("username", "mycomp@bk.ru"); // user phone or mail
-		this.set("password", "дфьук666"); // user password
+		this.set("username", ""); // user phone or mail
+		this.set("password", ""); // user password
 
 	}
 
