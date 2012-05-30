@@ -1,0 +1,44 @@
+<class-diagram version="1.0.8" icons="true" automaticImage="JPEG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="TOP_RIGHT" language="java" name="com.vk.android_messenger.Model" project="VK_Messenger" 
+    file="/VK_Messenger/src/com/vk/android_messenger/Model.java" binary="false">    
+    <position height="346" width="366" x="37" y="217"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="true" protected="true" private="false"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="com.vk.android_messenger.Model.HttpKlass" 
+    project="VK_Messenger" file="/VK_Messenger/src/com/vk/android_messenger/Model.java" binary="false">    
+    <position height="74" width="367" x="37" y="116"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="false" signature="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="true" protected="true" private="false"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="com.vk.android_messenger.ModelMessages" 
+    project="VK_Messenger" file="/VK_Messenger/src/com/vk/android_messenger/ModelMessages.java" binary="false">    
+    <position height="165" width="204" x="447" y="116"/>    
+    <display autosize="false" stereotype="false" package="false" initial-value="true" signature="false" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="true" protected="true" private="false"/>    
+    </display>  
+  </class>  
+  <generalization id="4">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <nesting id="5">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </nesting>  
+  <classifier-display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="false"/>    
+    <operations public="true" package="true" protected="true" private="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
