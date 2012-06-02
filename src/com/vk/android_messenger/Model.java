@@ -78,8 +78,10 @@ public class Model {
 
 
 	//API url
-	private String apiUrl = "https://api.vk.com/oauth/token?";
+	private final static String apiUrl = "https://api.vk.com/oauth/token?";
 	
+	private String temporaryApiUrl = apiUrl;
+
 	//request params array
 	private Map <String, String> requestParams = new HashMap <String, String>();
 
@@ -109,18 +111,20 @@ public class Model {
 	private Boolean execRequest() {
 
 		this.beforeRequest();
+		
 		//setting params for request to server
 		this.setGetParams();
+		this.clearParams();
 		
 		if (this.requestParams.isEmpty()) {
 			return false;
 		}
 		
-		Logger.log("execute request to: " + this.apiUrl);
+		Logger.log("execute request to: " + this.temporaryApiUrl);
 		HttpKlass test = new HttpKlass();
 		String responseString = "";
 		try {
-			responseString = test.executeHttpGet(this.apiUrl);
+			responseString = test.executeHttpGet(this.temporaryApiUrl);
 		} catch (Exception e) {
 			this.addError("", e.getMessage().toString());
 
@@ -130,6 +134,7 @@ public class Model {
 		if ( ! this.allErrors().isEmpty()) {
 			return false;
 		}
+		this.clearData();
 		this.parseResponse(responseString);
 		this.afterRequest();
 		return true;
@@ -140,7 +145,8 @@ public class Model {
 	}
 	
 	public void clearParams() {
-		this.requestParams.clear();
+//		this.temporaryApiUrl = apiUrl;
+//		this.requestParams.clear();
 	}
 	
 	public void clearData() {
@@ -178,10 +184,10 @@ public class Model {
 	protected void setGetParams() {
 		
 		for (Map.Entry<String, String> entry: this.requestParams.entrySet()) {
-			this.apiUrl += "&" + entry.getKey() + "=" + entry.getValue() + "&";
+			this.temporaryApiUrl += "&" + entry.getKey() + "=" + entry.getValue() + "&";
 		}
 
-		this.apiUrl = String.copyValueOf(this.apiUrl.toCharArray(), 0, this.apiUrl.length() - 1);
+		this.temporaryApiUrl = String.copyValueOf(this.temporaryApiUrl.toCharArray(), 0, this.temporaryApiUrl.length() - 1);
 	}
 
 	public void set(String key, String value) {
