@@ -18,7 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Model {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Model implements Parcelable {
 	
 	
 	///for HTTP connections
@@ -60,7 +63,7 @@ public class Model {
 					try {
 						in.close();
 					} catch (IOException e) {
-						Logger.log("Http_klass executeHttpGet exception: "
+						Console.log("Http_klass executeHttpGet exception: "
 								+ e.getMessage().toString());
 					}
 				}
@@ -92,35 +95,39 @@ public class Model {
 	private Map <String, String> errors = new HashMap <String, String>();
 
 
-	public Model() {
+//	public Model() {
+//		Logger.log("model constructor");
+//		//take out to child classes
+////		this.set("grant_type", "password");
+////		this.set("client_id", this.client_id);
+////		this.set("client_secret", this.client_secret);
+////
+////		this.set("username", "user12354@mail.ru"); // user phone or mail
+////		this.set("password", "user123456"); // user password
+//
+//	}
 
-		//take out to child classes
-		this.set("grant_type", "password");
-		this.set("client_id", this.client_id);
-		this.set("client_secret", this.client_secret);
-
-		this.set("username", ""); // user phone or mail
-		this.set("password", ""); // user password
-
-	}
-
-	public Boolean execute() {
+	public Boolean execute() throws Exception {
 		return this.execRequest();
 	}
 	
-	private Boolean execRequest() {
-
-		this.beforeRequest();
+	private Boolean execRequest() throws Exception {
 		
+		
+		this.beforeRequest();
+		this.clearURL();
 		//setting params for request to server
 		this.setGetParams();
-		this.clearParams();
 		
-		if (this.requestParams.isEmpty()) {
+		
+		if ( this.requestParams.isEmpty()) {
 			return false;
 		}
-		
-		Logger.log("execute request to: " + this.temporaryApiUrl);
+		else {
+			this.clearParams();
+		}
+
+		Console.log("execute request to: " + this.temporaryApiUrl);
 		HttpKlass test = new HttpKlass();
 		String responseString = "";
 		try {
@@ -128,7 +135,7 @@ public class Model {
 		} catch (Exception e) {
 			this.addError("", e.getMessage().toString());
 
-			Logger.log("exec_request() exception: " + e.getMessage().toString()
+			Console.log("exec_request() exception: " + e.getMessage().toString()
 					+ " " + e.toString());
 		}
 		if ( ! this.allErrors().isEmpty()) {
@@ -145,8 +152,11 @@ public class Model {
 	}
 	
 	public void clearParams() {
-//		this.temporaryApiUrl = apiUrl;
-//		this.requestParams.clear();
+		this.requestParams.clear();
+	}
+	
+	private void clearURL() {
+		this.temporaryApiUrl = apiUrl;
 	}
 	
 	public void clearData() {
@@ -154,7 +164,7 @@ public class Model {
 	}
 	
 	private void parseResponse(String responseString) {
-		Logger.log("start parseResponse");
+		Console.log("start parseResponse");
 		if (responseString != null) {
 			try {
 				JSONObject entries = new JSONObject(responseString);
@@ -163,7 +173,7 @@ public class Model {
 				for (i = 0; i < entries.length(); i++) {
 					String name = names.getString(i);
 					this.data.put(name, entries.getString(name));
-					Logger.log("name: " + name + " value: "
+					Console.log("name: " + name + " value: "
 							+ entries.getString(name));
 				}
 				if (!entries.isNull("access_token")) {
@@ -171,7 +181,7 @@ public class Model {
 				}
 
 			} catch (JSONException e) {
-				Logger.log("Error in response: " + e.getMessage().toString()
+				Console.log("Error in response: " + e.getMessage().toString()
 						+ "  " + e.toString());
 			}
 		}
@@ -183,6 +193,7 @@ public class Model {
 
 	protected void setGetParams() {
 		
+		Console.log("setGetParams start");
 		for (Map.Entry<String, String> entry: this.requestParams.entrySet()) {
 			this.temporaryApiUrl += "&" + entry.getKey() + "=" + entry.getValue() + "&";
 		}
@@ -214,6 +225,39 @@ public class Model {
 
 	public final Map<String, String> allErrors() {
 		return this.errors;
+	}
+
+	
+	// Parcel code start
+	// Now We Can put to Extra (for activity) this Object (Model)
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+
+		@Override
+		public Model createFromParcel(Parcel parcel) {
+			Model model = new Model();
+			model.access_token = parcel.readString();
+			// TODO Auto-generated method stub
+			return model;
+		}
+
+		@Override
+		public Model[] newArray(int size) {
+			return new Model[size];
+		}
+		
+	};
+	
+	@Override
+	public void writeToParcel(Parcel parcel, int i) {
+		// TODO Auto-generated method stub
+		parcel.writeString(this.access_token);
 	}
 	
 }

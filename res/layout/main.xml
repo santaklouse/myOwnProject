@@ -5,8 +5,25 @@
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/LargeTestTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.03"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/testTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.18"
         android:text="@string/hello" />
+
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/logOutButton" />
 
 </LinearLayout>
