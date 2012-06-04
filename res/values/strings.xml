@@ -2,11 +2,11 @@
 <resources>
 
     <string name="hello">Hello World, VK_MessengerActivity!</string>
-    <string name="app_name">Вк месенджер</string>
-
-    <string name="loginInput">Номер Вашего телефона</string>
-    <string name="passInput">Ваш пароль</string>
-    <string name="loginButton">Войти</string>
-    <string name="logOutButton">Выйти</string>
+    <string name="app_name">VK Messenger</string>
+    
+    <string name="loginInput">Your phone number</string>
+    <string name="passInput">Your password</string>
+    <string name="loginButton">Log in</string>
+    <string name="logOutButton">Log Out</string>
 
 </resources>
